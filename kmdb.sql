@@ -132,7 +132,7 @@
 -- TODO!
 
 DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS studio;
+DROP TABLE IF EXISTS studios;
 DROP TABLE IF EXISTS actors;
 DROP TABLE IF EXISTS roles;
 
@@ -144,7 +144,7 @@ CREATE TABLE movies (
   studio_id INTEGER
 );
 
-CREATE TABLE studio (
+CREATE TABLE studios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   studio_name TEXT
 );
@@ -168,7 +168,7 @@ VALUES
   ('The Dark Knight', 2008, 'PG-13',1), 
   ('The Dark Knight Rises', 2012, 'PG-13',1);
 
-  INSERT INTO studio
+INSERT INTO studios
   ( studio_name)
 VALUES
   ('Warner Bros.')
@@ -212,10 +212,12 @@ VALUES
 .print "======"
 .print ""
 
-  SELECT * from movies;
+  SELECT movies.title, movies.year_released, movies.MPAA_rating, studios.studio_name from movies INNER JOIN studios ON movies.studio_id = studios.id
+  ;
 
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
 
+  SELECT movies.title, actors.actor_name, roles.role_name from roles INNER JOIN movies ON movies.id = roles.movie_id INNER JOIN actors ON actors.id = roles.actor_id;
